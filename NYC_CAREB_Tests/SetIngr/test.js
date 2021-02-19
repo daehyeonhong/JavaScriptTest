@@ -1,6 +1,8 @@
 'use strict';
 const target1 = document.querySelector('#typeTarget1');
 const target2 = document.querySelector('#typeTarget2');
+const count1 = document.querySelector('#countTarget1');
+const count2 = document.querySelector('#countTarget2');
 const result1 = document.querySelector('#typeResult1');
 const result2 = document.querySelector('#typeResult2');
 const orgin = document.querySelectorAll('input[name="origin"]');
@@ -9,25 +11,33 @@ const domestic = document.querySelector('#domestic');
 const foreignCountry = document.querySelector('#foreignCountry');
 
 function checkOrigin(event) {
-  /* console.log(event.target.value); */
-  console.log(this.id);
-  console.log(this.value);
+  const target = this.value;
+  if (target === 'domestic') {
+    foreignCountry.value = '';
+  }
+  foreignCountry.toggleAttribute('disabled');
+  console.log(target)
 }
 
-orgin.forEach((input) => {
-  input.addEventListener('change', checkOrigin);
-});
+function handleOrigin() {
+  orgin.forEach((input) => {
+    input.addEventListener('change', checkOrigin);
+  });
+}
 
-function changeResult(length, result) {
+function changeResult(length, count, result) {
   if (result === undefined || length === undefined) {
+    count1.value = 0;
+    count2.value = 0;
     result1.innerHTML = 0;
     result2.innerHTML = 0;
   } else {
+    count.value = length;
     result.innerHTML = length;
   }
 }
 
-function handleType(target, result, event) {
+function handleType(target, count, result, event) {
   target.addEventListener('change', () => {
     const text = target.value;
     console.log(text);
@@ -44,14 +54,15 @@ function handleType(target, result, event) {
     if (length > 20) {
       alert(`글자 수를 확인하세요 현재 글자 크기 ${length}`);
     }
-    changeResult(length, result);
+    changeResult(length, count, result);
   });
 }
 
 function init() {
+  handleOrigin();
   changeResult();
-  handleType(target1, result1);
-  handleType(target2, result2);
+  handleType(target1, count1, result1);
+  handleType(target2, count2, result2);
 }
 
 init();
