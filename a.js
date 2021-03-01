@@ -1,4 +1,5 @@
 'use strict';
+
 $.changeResult = (targetLength, result) => {
 	result.html(targetLength);
 }
