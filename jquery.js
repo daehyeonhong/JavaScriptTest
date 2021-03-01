@@ -5,22 +5,20 @@ const count1 = document.querySelector('#countTarget1');
 const count2 = document.querySelector('#countTarget2');
 const result1 = document.querySelector('#typeResult1');
 const result2 = document.querySelector('#typeResult2');
-const orgin = document.querySelectorAll('input[name="origin"]');
 const foreign = document.querySelector('#foreign');
 const domestic = document.querySelector('#domestic');
-const foreignCountry = document.querySelector('#foreignCountry');
 
 function checkOrigin(event) {
 	const target = this.value;
-	if (target === 'domestic') {
-		foreignCountry.value = '';
+	if (target === '국내산') {
+		$('#foreignCountry').value = '';
 	}
-	foreignCountry.toggleAttribute('disabled');
+	$('#foreignCountry').toggleAttribute('disabled');
 	console.log(target)
 }
 
 function handleOrigin() {
-	orgin.forEach((input) => {
+	$('input[name="origin"]').forEach((input) => {
 		input.addEventListener('change', checkOrigin);
 	});
 }
@@ -58,6 +56,7 @@ function handleType(target, count, result, event) {
 	});
 }
 
+/* 
 function init() {
 	handleOrigin();
 	changeResult();
@@ -66,3 +65,7 @@ function init() {
 }
 
 init();
+ */
+$('ducoument').ready(() => {
+	handleOrigin();
+});
